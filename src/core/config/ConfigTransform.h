@@ -48,6 +48,7 @@ private:
     int64_t m_affinity      = -1;
     uint64_t m_intensity    = 1;
     uint64_t m_threads      = 0;
+    int m_sleep             = -1;
 };
 
 

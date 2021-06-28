@@ -41,6 +41,7 @@ static const char *kHwAes               = "hw-aes";
 static const char *kMaxThreadsHint      = "max-threads-hint";
 static const char *kMemoryPool          = "memory-pool";
 static const char *kPriority            = "priority";
+static const char *kSleep               = "sleep";
 static const char *kYield               = "yield";
 static const char *kForceAutoconfig     = "force-autoconfig";
 static const char *kMaxCpuUsage         = "max-cpu-usage";
@@ -82,6 +83,7 @@ rapidjson::Value xmrig::CpuConfig::toJSON(rapidjson::Document &doc) const
     obj.AddMember(StringRef(kHugePagesJit), m_hugePagesJit, allocator);
     obj.AddMember(StringRef(kHwAes),        m_aes == AES_AUTO ? Value(kNullType) : Value(m_aes == AES_HW), allocator);
     obj.AddMember(StringRef(kPriority),     priority() != -1 ? Value(priority()) : Value(kNullType), allocator);
+    obj.AddMember(StringRef(kSleep),        sleep() != -1 ? Value(sleep()) : Value(kNullType), allocator);
     obj.AddMember(StringRef(kMaxCpuUsage),  maxCpuUsage() != -1  ? Value(maxCpuUsage()) : Value(kNullType), allocator);
     obj.AddMember(StringRef(kMemoryPool),   m_memoryPool < 1 ? Value(m_memoryPool < 0) : Value(m_memoryPool), allocator);
     obj.AddMember(StringRef(kYield),        m_yield, allocator);
@@ -146,6 +148,7 @@ void xmrig::CpuConfig::read(const rapidjson::Value &value)
         setHugePages(Json::getValue(value, kHugePages));
         setMemoryPool(Json::getValue(value, kMemoryPool));
         setPriority(Json::getInt(value,  kPriority, -1));
+        setSleep(Json::getInt(value,  kSleep, -1));
         setMaxCpuUsage(Json::getInt(value,  kMaxCpuUsage, -1));
 
 #       ifdef XMRIG_FEATURE_ASM

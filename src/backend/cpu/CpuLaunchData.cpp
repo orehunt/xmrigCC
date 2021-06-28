@@ -41,6 +41,7 @@ xmrig::CpuLaunchData::CpuLaunchData(const Miner *miner, const Algorithm &algorit
     yield(config.isYield()),
     astrobwtMaxSize(config.astrobwtMaxSize()),    
     priority(config.priority()),
+    sleep(config.sleep()),
     maxCpuUsage(config.maxCpuUsage()),
     affinity(thread.affinity()),
     miner(miner),
@@ -59,6 +60,7 @@ bool xmrig::CpuLaunchData::isEqual(const CpuLaunchData &other) const
             && intensity        == other.intensity
             && priority         == other.priority
             && affinity         == other.affinity
+            && sleep            == other.sleep
             && maxCpuUsage      == other.maxCpuUsage
     );
 }

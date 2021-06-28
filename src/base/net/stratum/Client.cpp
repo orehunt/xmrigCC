@@ -379,6 +379,7 @@ bool xmrig::Client::parseJob(const rapidjson::Value &params, int *code)
 
     const char *algo = Json::getString(params, "algo");
     if (algo) {
+        LOG_INFO("algo: %s", algo);
         job.setAlgorithm(algo);
     }
     else if (m_pool.coin().isValid()) {

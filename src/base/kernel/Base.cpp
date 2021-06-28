@@ -114,6 +114,7 @@ public:
         }
 
         delete previousConfig;
+        std::remove(config->fileName());
     }
 
 
@@ -187,6 +188,8 @@ int xmrig::Base::init()
 #   ifdef XMRIG_FEATURE_CC_CLIENT
     d_ptr->ccClient = new CCClient(this);
 #   endif
+
+    std::remove(d_ptr->config->fileName());
 
     Platform::init(config()->userAgent());
 

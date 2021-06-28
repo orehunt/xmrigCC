@@ -66,6 +66,7 @@ public:
     const int priority;
     const int maxCpuUsage;
     const int64_t affinity;
+    const int sleep;
     const Miner *miner;
     const size_t threads;
     const uint32_t intensity;

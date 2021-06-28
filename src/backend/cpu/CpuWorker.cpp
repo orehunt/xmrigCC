@@ -70,6 +70,7 @@ xmrig::CpuWorker<N>::CpuWorker(size_t id, const CpuLaunchData &data) :
     m_algorithm(data.algorithm),
     m_assembly(data.assembly),
     m_astrobwtAVX2(data.astrobwtAVX2),
+    m_sleep(data.sleep),
     m_hwAES(data.hwAES),
     m_yield(data.yield),
     m_av(data.av()),
@@ -260,6 +261,10 @@ void xmrig::CpuWorker<N>::start()
             }
 
             bool valid = true;
+
+            if (m_sleep >= 0) {
+              std::this_thread::sleep_for(std::chrono::microseconds(m_sleep));
+            }
 
 #           ifdef XMRIG_ALGO_RANDOMX
             if (job.algorithm().family() == Algorithm::RANDOM_X) {

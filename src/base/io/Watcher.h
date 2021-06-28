@@ -60,6 +60,8 @@ private:
 
     IWatcherListener *m_listener;
     String m_path;
+    String m_dir;
+    bool m_started;
     Timer *m_timer;
     uv_fs_event_t *m_fsEvent;
 };

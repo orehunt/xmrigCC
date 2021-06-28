@@ -111,7 +111,7 @@ static AlgoName const algorithm_names[] = {
     { "cryptonight-extremelite/upx2", "cn-extremelite/upx2", Algorithm::CN_EXTREMELITE_0 },
     { "cryptonight-extremelite",   "cn-extremelite",   Algorithm::CN_EXTREMELITE_0},
     { "cryptonight-upx2",          "cn-upx2",          Algorithm::CN_EXTREMELITE_0},
-    { "upx2",                      nullptr,            Algorithm::CN_EXTREMELITE_0},
+    { "cn-femto/upx2",                      nullptr,            Algorithm::CN_EXTREMELITE_0},
     { "cryptonight-extremelite",   nullptr,            Algorithm::CN_EXTREMELITE_0},
 #   endif
 #   ifdef XMRIG_ALGO_RANDOMX

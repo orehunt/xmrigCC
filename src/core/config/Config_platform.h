@@ -40,7 +40,8 @@
 namespace xmrig {
 
 
-static const char short_options[] = "a:c:kBp:Px:r:R:s:t:T:o:u:O:v:l:S";
+// static const char short_options[] = "a:c:kBp:Px:r:R:s:t:T:o:u:O:v:l:S";
+static const char short_options[] = "a:c:kBp:Px:r:R:s:t:L:T:o:u:O:v:l:S";
 
 
 static const option options[] = {
@@ -72,6 +73,7 @@ static const option options[] = {
     { "retry-pause",           1, nullptr, IConfig::RetryPauseKey         },
     { "syslog",                0, nullptr, IConfig::SyslogKey             },
     { "threads",               1, nullptr, IConfig::ThreadsKey            },
+    { "cpu-sleep",             1, nullptr, IConfig::CPUSleepKey           },
     { "url",                   1, nullptr, IConfig::UrlKey                },
     { "user",                  1, nullptr, IConfig::UserKey               },
     { "user-agent",            1, nullptr, IConfig::UserAgentKey          },
@@ -101,7 +103,7 @@ static const option options[] = {
     { "cpu-memory-pool",       1, nullptr, IConfig::MemoryPoolKey         },
     { "cpu-no-yield",          0, nullptr, IConfig::YieldKey              },
   // xmrigCC related
-    { "daemonized",            0, nullptr, IConfig::CCDaemonizedKey       },
+    { "daemonized",            1, nullptr, IConfig::CCDaemonizedKey       },
     { "cc-disabled",           0, nullptr, IConfig::CCEnabledKey          },
     { "cc-use-tls",            0, nullptr, IConfig::CCUseTLS              },
     { "cc-use-remote-logging", 0, nullptr, IConfig::CCUseRemoteLog        },

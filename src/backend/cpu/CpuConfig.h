@@ -64,6 +64,7 @@ public:
     inline const Threads<CpuThreads> &threads() const   { return m_threads; }
     inline int astrobwtMaxSize() const                  { return m_astrobwtMaxSize; }
     inline int priority() const                         { return m_priority; }
+    inline int sleep() const                            { return m_sleep; }
     inline size_t hugePageSize() const                  { return m_hugePageSize * 1024U; }
     inline int maxCpuUsage() const                      { return m_maxCpuUsage; }
     inline uint32_t limit() const                       { return m_limit; }
@@ -78,6 +79,7 @@ private:
     void setMemoryPool(const rapidjson::Value &value);
 
     inline void setPriority(int priority)   { m_priority = (priority >= -1 && priority <= 5) ? priority : -1; }
+    inline void setSleep(int sleep)   { m_sleep = (sleep >= -1) ? sleep : -1; }
     inline void setMaxCpuUsage(int maxCpuUsage) { m_maxCpuUsage = (maxCpuUsage > 0 && maxCpuUsage < 100) ? maxCpuUsage : -1; }
 
     AesMode m_aes           = AES_AUTO;
@@ -96,6 +98,7 @@ private:
     String m_argon2Impl;
     Threads<CpuThreads> m_threads;
     uint32_t m_limit        = 100;
+    int m_sleep             = -1;
 };
 
 

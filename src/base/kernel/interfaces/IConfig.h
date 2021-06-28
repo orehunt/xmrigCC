@@ -78,6 +78,7 @@ public:
 
         // xmrig common
         CPUPriorityKey       = 1021,
+        CPUSleepKey          = 'L',
         NicehashKey          = 1006,
         PrintTimeKey         = 1007,
 

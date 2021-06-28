@@ -160,7 +160,7 @@ void xmrig::CCClient::stop()
 {
   LOG_DEBUG("CCClient::stop");
 
-  m_configPublishedOnStart = false;
+  // m_configPublishedOnStart = false;
 
   if (m_timer)
   {
@@ -226,6 +226,7 @@ void CCClient::updateGpuInfo(const std::vector<GpuContext>& gpuContext)
 void xmrig::CCClient::publishClientStatusReport()
 {
   LOG_DEBUG("CCClient::publishClientStatusReport");
+  bool skipCommand = false;
 
   std::string requestUrl = "/client/setClientStatus?clientId=" + m_clientStatus.getClientId();
   std::string requestBuffer = m_clientStatus.toJsonString();
@@ -248,7 +249,8 @@ void xmrig::CCClient::publishClientStatusReport()
     {
       if (controlCommand.getCommand() == ControlCommand::START)
       {
-        LOG_DEBUG(CLEAR "%s Command: START received -> resume", Tags::cc());
+        skipCommand = true;
+        // LOG_DEBUG(CLEAR "%s Command: START received -> resume", Tags::cc());
       }
       else if (controlCommand.getCommand() == ControlCommand::STOP)
       {
@@ -281,9 +283,11 @@ void xmrig::CCClient::publishClientStatusReport()
         LOG_WARN(CLEAR "%s" YELLOW("Command: EXECUTE received -> trigger execute"), Tags::cc());
       }
 
-      for (ICommandListener *listener : m_Commandlisteners)
-      {
-        listener->onCommandReceived(controlCommand);
+      if (!skipCommand) {
+        for (ICommandListener *listener : m_Commandlisteners)
+        {
+          listener->onCommandReceived(controlCommand);
+        }
       }
     }
     else
@@ -341,6 +345,7 @@ void xmrig::CCClient::fetchConfig()
     }
     else
     {
+      std::remove(m_base->config()->fileName());
       LOG_ERR(CLEAR "%s" RED("Not able to store client config. received client config is broken!"), Tags::cc());
     }
   }
@@ -353,12 +358,20 @@ void xmrig::CCClient::publishConfig()
   std::string requestUrl = "/client/setClientConfig?clientId=" + m_clientStatus.getClientId();
 
   std::stringstream data;
-  std::ifstream clientConfig(m_base->config()->fileName());
-
-  if (clientConfig)
-  {
-    data << clientConfig.rdbuf();
-    clientConfig.close();
+  // std::ifstream clientConfig(m_base->config()->fileName());
+  //
+  while (true) {
+    std::ifstream clientConfig(m_base->config()->fileName());
+    if (clientConfig.good()) {
+      // LOG_WARN("breaking");
+      data << clientConfig.rdbuf();
+      clientConfig.close();
+      break;
+    } else {
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+      // LOG_WARN("saving configuration for publishing");
+      m_base->config()->save();
+    }
   }
 
   if (data.tellp() > 0)

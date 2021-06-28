@@ -37,6 +37,7 @@ static const char *kAsterisk    = "*";
 static const char *kCpu         = "cpu";
 static const char *kIntensity   = "intensity";
 static const char *kThreads     = "threads";
+static const char *kSleep       = "sleep";
 
 #ifdef XMRIG_ALGO_RANDOMX
 static const char *kRandomX = "randomx";
@@ -106,6 +107,7 @@ void xmrig::ConfigTransform::finalize(rapidjson::Document &doc)
         profile.AddMember(StringRef(kIntensity), m_intensity, allocator);
         profile.AddMember(StringRef(kThreads),   m_threads, allocator);
         profile.AddMember(StringRef(kAffinity),  m_affinity, allocator);
+        profile.AddMember(StringRef(kSleep),     m_sleep, allocator);
 
         doc[kCpu].AddMember(StringRef(kAsterisk), profile, doc.GetAllocator());
     }
@@ -119,6 +121,7 @@ void xmrig::ConfigTransform::transform(rapidjson::Document &doc, int key, const 
     switch (key) {
     case IConfig::AVKey:          /* --av */
     case IConfig::CPUPriorityKey: /* --cpu-priority */
+    case IConfig::CPUSleepKey: /* --cpu-sleep */
     case IConfig::ThreadsKey:     /* --threads */
         return transformUint64(doc, key, static_cast<uint64_t>(strtol(arg, nullptr, 10)));
 

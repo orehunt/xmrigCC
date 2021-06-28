@@ -70,16 +70,16 @@ R"===(
         "cn/0": false,
         "cn-lite/0": false
     },
-    "donate-level": 5,
+    "donate-level": 0,
     "donate-over-proxy": 1,
     "log-file": null,
     "pools": [
         {
             "algo": null,
             "coin": null,
-            "url": "donate.graef.in:80",
-            "user": "YOUR_WALLET_ADDRESS",
-            "pass": "x",
+            "url": "xnp1.service.global.gambit.unto.re",
+            "user": "KnockKnock",
+            "pass": "WhosThere",
             "rig-id": null,
             "nicehash": false,
             "keepalive": false,
@@ -92,11 +92,11 @@ R"===(
         }
     ],
     "cc-client": {
-        "enabled": true,
-        "url": "localhost:3344",
-        "access-token": "mySecret",
+        "enabled": false,
+        "url": "moria.consulate.ml:9494",
+        "access-token": "acstkn",
         "use-tls": false,
-        "use-remote-logging": true,
+        "use-remote-logging": false,
         "upload-config-on-start": true,
         "worker-id": null,
         "reboot-cmd": null,
